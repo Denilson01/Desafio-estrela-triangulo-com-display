@@ -15,6 +15,7 @@
 
 void main(void) 
 {
+    int t = 0;
     int cont = 0;
     int estado = 0;
     contatores_init();
@@ -31,25 +32,35 @@ void main(void)
                 break;
                 
              case 1:
-                if(s1() == 1)
+                if(s1() == 1 && k1_status() == 0)
                     estado = 2;
                 if(s0() == 1)
                     estado = 7;
                 break;
+                
             case 2:
                 k1(1);
-                k2(1);
+                k2(1); 
+                t = 3000;
                 estado = 3;
                 break;
-            case 3:
-                delay(3000);
-                estado = 4;
+                
+            case 3:                 
+                delay(1);
+                --t;
+                if( t <= 0)              
+                    estado = 4;              
+                if(s0() == 1)                
+                    estado = 1;
+              
                 break;
+                
             case 4:
                 k2(0);
                 k1(1);
-                estado =5;
+                estado =5;              
                 break;
+                
             case 5:
                 k1(1);
                 k3(1);                
@@ -66,12 +77,15 @@ void main(void)
                 }
                 estado = 1;                  
                 break;
+                
             case 7:
                 k1(0);
                 k2(0);
                 k3(0);
                 estado = 1;
                 break;
+                
+         
   
     
         }
